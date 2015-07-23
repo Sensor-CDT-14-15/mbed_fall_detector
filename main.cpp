@@ -8,6 +8,7 @@ using namespace std;
 
 deque<float> x_data, y_data, z_data;
 deque<float> sigma;
+deque<float> theta_x, theta_y, theta_z;
 
 // Calculates the mean of a deque
 float average(deque<float> x) {
@@ -42,8 +43,11 @@ void update_data() {
 		x_data.push_front(x); y_data.push_front(x); z_data.push_front(x);
 		x_data.pop_back(); y_data.pop_back(); z_data.pop_back();
 
-		sigma.push_front(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
+		float root = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+		sigma.push_front(root);
 		sigma.pop_back();
+		theta_x.push_front(acos(x / root)); theta_y.push_front(acos(y / root)); theta_z.push_front(acos(z / root));
+		theta_x.pop_back(); theta_y.pop_back(); theta_z.pop_back();
 	}
 }
 
@@ -51,6 +55,7 @@ int main() {
 	srand(time(NULL));
 	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
 	sigma.assign(20, 0);
+	theta_x.assign(20, 0); theta_y.assign(20, 0); theta_z.assign(20, 0);
 
 	update_data();
 }
