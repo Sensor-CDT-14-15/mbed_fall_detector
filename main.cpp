@@ -105,6 +105,7 @@ int main() {
 
 	float sigma_stddev_ratio = stddev(first_half(sigma)) / stddev(last_half(sigma));
 	float theta_z_average_ratio = average(first_half(theta_z)) / average(first_half(theta_z));
+	float theta_z_average_delta = average(first_half(theta_z)) - average(last_half(theta_z));
 
 	fall_detected(0.0, 0.0, 0.0, 0.0, 0.0);
 	fall_detected(1.01051, 1.26391, 0, 0.20501, 0);
