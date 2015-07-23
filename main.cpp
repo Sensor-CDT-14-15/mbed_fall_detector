@@ -74,6 +74,26 @@ bool fall_detected(float sig_ratio, float theta_z_ratio, float theta_z_delta, fl
 	return fall;
 }
 
+template<class T>
+deque<T> first_half(deque<T> x) {
+	deque<T> first;
+	first.assign(x.size() / 2, 0);
+	for (int i = 0; i < first.size(); i++) {
+		first[i] = x[i];
+	}
+	return first;
+}
+
+template<class T>
+deque<T> last_half(deque<T> x) {
+	deque<T> last;
+	last.assign(x.size() - x.size() / 2, 0);
+	for (int i = 0; i < last.size(); i++) {
+		last[i] = x[x.size() / 2 + i];
+	}
+	return last;
+}
+
 int main() {
 	srand(time(NULL));
 	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
