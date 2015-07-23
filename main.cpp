@@ -94,6 +94,18 @@ deque<T> last_half(deque<T> x) {
 	return last;
 }
 
+float deque_window_stddev_ratio(deque<float> x) {
+	deque<float> first = first_half(x);
+	deque<float> last = last_half(x);
+	return stddev(first) / stddev(last);
+}
+
+float deque_window_stddev_delta(deque<float> x) {
+	deque<float> first = first_half(x);
+	deque<float> last = last_half(x);
+	return stddev(first) - stddev(last);
+}
+
 int main() {
 	srand(time(NULL));
 	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
