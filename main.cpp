@@ -33,14 +33,19 @@ float stddev(deque<float> x) {
 	return stddev;
 }
 
-int main() {
-	srand(time(NULL));
-	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
-
+// Get x, y, z data and add to deques
+void update_data() {
 	for (int i = 0; i < 20; i++) {
 		x = rand(); y = rand(); z = rand();
 		printf("%f, %f, %f\n", x, y, z);
 		x_data.push_front(x); y_data.push_front(x); z_data.push_front(x);
 		x_data.pop_back(); y_data.pop_back(); z_data.pop_back();
 	}
+}
+
+int main() {
+	srand(time(NULL));
+	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
+
+	update_data();
 }
