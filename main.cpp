@@ -6,7 +6,6 @@
 
 using namespace std;
 
-float x, y, z;
 deque<float> x_data, y_data, z_data;
 
 // Calculates the mean of a deque
@@ -36,6 +35,7 @@ float stddev(deque<float> x) {
 // Get x, y, z data and add to deques
 void update_data() {
 	for (int i = 0; i < 20; i++) {
+		float x, y, z;
 		x = rand(); y = rand(); z = rand();
 		printf("%f, %f, %f\n", x, y, z);
 		x_data.push_front(x); y_data.push_front(x); z_data.push_front(x);
