@@ -14,7 +14,7 @@ const float threshold_sig = 1.0105;
 const float threshold_theta_z = 1.2639;
 const float threshold_delta_theta_z = 0.8398;
 const float threshold_sigma_stddev_first = 0.2050;
-const float threshold_ask_omar_2 = 0.5905;
+const float threshold_xyz_variances_norm = 0.5905;
 
 // Calculates the mean of a deque
 float average(deque<float> x) {
@@ -57,14 +57,14 @@ void update_data() {
 	}
 }
 
-bool fall_detected(float sigma_stddev_ratio, float theta_z_average_ratio, float theta_z_average_delta, float sigma_stddev_first, float mag_sigXYZ) {
+bool fall_detected(float sigma_stddev_ratio, float theta_z_average_ratio, float theta_z_average_delta, float sigma_stddev_first, float xyz_variances_norm) {
 	bool fall = false;
 	if (
 		(sigma_stddev_ratio > threshold_sig || theta_z_average_ratio > threshold_theta_z)
 		&&
 		(theta_z_average_ratio > threshold_theta_z || theta_z_average_delta > threshold_delta_theta_z)
 		&&
-		(sigma_stddev_first > threshold_sigma_stddev_first || mag_sigXYZ > threshold_ask_omar_2)
+		(sigma_stddev_first > threshold_sigma_stddev_first || xyz_variances_norm > threshold_xyz_variances_norm)
 	) {
 		printf("FALL\n");
 		fall = true;
@@ -107,6 +107,7 @@ int main() {
 	float theta_z_average_ratio = average(first_half(theta_z)) / average(first_half(theta_z));
 	float theta_z_average_delta = average(first_half(theta_z)) - average(last_half(theta_z));
 	float sigma_stddev_first = stddev(first_half(sigma));
+	float xyz_variances_norm = sqrt(pow(stddev(first_half(x_data)), 2) + pow(stddev(first_half(y_data)), 2) + pow(stddev(first_half(z_data)), 2));
 
 	fall_detected(0.0, 0.0, 0.0, 0.0, 0.0);
 	fall_detected(1.01051, 1.26391, 0, 0.20501, 0);
