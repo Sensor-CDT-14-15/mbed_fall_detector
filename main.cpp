@@ -57,12 +57,12 @@ void update_data() {
 	}
 }
 
-bool fall_detected(float sig_ratio, float theta_z_ratio, float theta_z_delta, float sigA, float mag_sigXYZ) {
+bool fall_detected(float sigma_stddev_ratio, float theta_z_average_ratio, float theta_z_average_delta, float sigA, float mag_sigXYZ) {
 	bool fall = false;
 	if (
-		(sig_ratio > threshold_sig || theta_z_ratio > threshold_theta_z)
+		(sigma_stddev_ratio > threshold_sig || theta_z_average_ratio > threshold_theta_z)
 		&&
-		(theta_z_ratio > threshold_theta_z || theta_z_delta > threshold_delta_theta_z)
+		(theta_z_average_ratio > threshold_theta_z || theta_z_average_delta > threshold_delta_theta_z)
 		&&
 		(sigA > threshold_ask_omar || mag_sigXYZ > threshold_ask_omar_2)
 	) {
