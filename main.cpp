@@ -10,6 +10,12 @@ deque<float> x_data, y_data, z_data;
 deque<float> sigma;
 deque<float> theta_x, theta_y, theta_z;
 
+const float threshold_sig = 1.0105;
+const float threshold_theta_z = 1.2639;
+const float threshold_delta_theta_z = 0.8398;
+const float threshold_ask_omar = 0.2050;
+const float threshold_ask_omar_2 = 0.5905;
+
 // Calculates the mean of a deque
 float average(deque<float> x) {
 	deque<float>::iterator it = x.begin();
@@ -51,6 +57,23 @@ void update_data() {
 	}
 }
 
+bool fall_detected(float sig_ratio, float theta_z_ratio, float theta_z_delta, float sigA, float mag_sigXYZ) {
+	bool fall = false;
+	if (
+		(sig_ratio > threshold_sig || theta_z_ratio > threshold_theta_z)
+		&&
+		(theta_z_ratio > threshold_theta_z || theta_z_delta > threshold_delta_theta_z)
+		&&
+		(sigA > threshold_ask_omar || mag_sigXYZ > threshold_ask_omar_2)
+	) {
+		printf("FALL\n");
+		fall = true;
+	} else {
+		printf("NO FALL\n");
+	}
+	return fall;
+}
+
 int main() {
 	srand(time(NULL));
 	x_data.assign(20, 0); y_data.assign(20, 0); z_data.assign(20, 0);
@@ -58,4 +81,7 @@ int main() {
 	theta_x.assign(20, 0); theta_y.assign(20, 0); theta_z.assign(20, 0);
 
 	update_data();
+
+	fall_detected(0.0, 0.0, 0.0, 0.0, 0.0);
+	fall_detected(1.01051, 1.26391, 0, 0.20501, 0);
 }
