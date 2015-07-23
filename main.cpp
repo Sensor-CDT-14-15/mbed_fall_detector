@@ -43,11 +43,4 @@ int main() {
 		x_data.push_front(x); y_data.push_front(x); z_data.push_front(x);
 		x_data.pop_back(); y_data.pop_back(); z_data.pop_back();
 	}
-
-	deque<float>::iterator it = x_data.begin();
-	while (it != x_data.end()) {
-		printf("x_data element: %f\n", *it++);
-	}
-	printf("x_data average: %f\n", average(x_data));
-	printf("x_data stddev: %f\n", stddev(x_data));
 }
