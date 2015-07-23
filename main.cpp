@@ -100,11 +100,18 @@ float deque_window_stddev_ratio(deque<float> x) {
 	return stddev(first) / stddev(last);
 }
 
+float deque_window_mean_ratio(deque<float> x) {
+	deque<float> first = first_half(x);
+	deque<float> last = last_half(x);
+	return average(first) / average(last);
+}
+
 float deque_window_stddev_delta(deque<float> x) {
 	deque<float> first = first_half(x);
 	deque<float> last = last_half(x);
 	return stddev(first) - stddev(last);
 }
+
 
 int main() {
 	srand(time(NULL));
@@ -113,6 +120,9 @@ int main() {
 	theta_x.assign(20, 0); theta_y.assign(20, 0); theta_z.assign(20, 0);
 
 	update_data();
+
+	float sigma_ratio = deque_window_stddev_ratio(sigma);
+	float theta_z_ratio = deque_window_mean_ratio(theta_z);
 
 	fall_detected(0.0, 0.0, 0.0, 0.0, 0.0);
 	fall_detected(1.01051, 1.26391, 0, 0.20501, 0);
